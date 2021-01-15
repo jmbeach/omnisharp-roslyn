@@ -37,13 +37,13 @@ namespace OmniSharp.Services
                 .ToImmutableArray();
 
             this.CodeFixProviders = types
-                .Where(t => typeof(CodeFixProvider).IsAssignableFrom(t))
+                .Where(t => typeof(CodeFixProvider).IsAssignableFrom(t) && t.Name != "CSharpUseCompoundAssignmentCodeFixProvider")
                 .Select(type => type.CreateInstance<CodeFixProvider>())
                 .Where(instance => instance != null)
                 .ToImmutableArray();
 
             this.CodeDiagnosticAnalyzerProviders = types
-                .Where(t => typeof(DiagnosticAnalyzer).IsAssignableFrom(t))
+                .Where(t => typeof(DiagnosticAnalyzer).IsAssignableFrom(t) && t.Name != "CSharpUseCompoundAssignmentDiagnosticAnalyzer")
                 .Select(type => type.CreateInstance<DiagnosticAnalyzer>())
                 .Where(instance => instance != null)
                 .ToImmutableArray();
